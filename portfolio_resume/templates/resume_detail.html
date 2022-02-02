@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Personal Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    {% include 'shared/_HeaderRefrences.html' %}
+</head>
+<body>
+<main id="main">
+    <!-- ======= Portfolio Details ======= -->
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <h2 class="portfolio-title">This is an example of portfolio detail</h2>
+            <div class="portfolio-details-slider swiper-container">
+              <div class="swiper-wrapper align-items-center">
+                {% for item in galleries %}
+                  <div class="swiper-slide">
+                  <img class="img-fluid" src="{{ item.image.url }}" alt="">
+                </div>
+                  {% endfor %}
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+          <div class="col-lg-4 portfolio-info">
+            <h3>Project information</h3>
+            <ul>
+              <li><strong>Category</strong>: {{ resume.categories.first }}</li>
+              <li><strong>Client</strong>: {{ resume.client }}</li>
+              <li><strong>Project date</strong>: {{ resume.Date }}</li>
+              <li><strong>Project URL</strong>: <a href="#">{{ resume.website }}</a></li>
+            </ul>
+            <p>
+            {{ resume.description }}
+            </p>
+              <buttom class="btn btn-dark" ><a href="/#portfolio">back</a></buttom>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Portfolio Details -->
+  </main><!-- End #main -->
+{% include 'shared/Footer.html' %}
+{% include 'shared/_FooterRefrences.html' %}
+</body>
+</html>

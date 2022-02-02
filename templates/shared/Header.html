@@ -1,0 +1,24 @@
+{% load static %}
+<header id="header">
+    <div class="container mobile-size">
+        <h1 class="text-c"><a href="/">FARZIN SHAMS</a></h1>
+{#        <a href="/" class="mr-auto"><img src="{{ setting.logo_image.url }}" height="80" alt="" class="img-fluid"></a>#}
+        <h2 class="text-c">I'm a passionate <span>Web Developer</span> from Tehran</h2>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link active" href="#header">Home</a></li>
+                <li><a class="nav-link" href="#about">About</a></li>
+                <li><a class="nav-link" href="#resume">Resume</a></li>
+                <li><a class="nav-link" href="#services">Services</a></li>
+                <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                <li><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+        <div class="social-links">
+            <a href="{{ setting.twitter }}" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="{{ setting.instagram }}" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="{{ setting.linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+    </div>
+</header><!-- End Header -->

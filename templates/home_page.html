@@ -1,0 +1,296 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load static %}
+{% block content %}
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <!-- ======= About Me ======= -->
+        <div class="about-me container">
+            <div class="section-title">
+                <h2>About</h2>
+                <p>Learn more about me</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-right">
+                    <img src="{% static 'img/me.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                    <h3>Web Designer &amp; Backend Developer</h3>
+                    <p class="fst-italic">
+                        Let's get to know me better
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong>
+                                    <span>20 June 1990</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong>
+                                    <span>www.FarzinShams.com</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong>
+                                    <span>{{ setting.mobile }}</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>City:</strong>
+                                    <span>Tehran, IRAN</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>31</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor</span>
+                                </li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong>
+                                    <span>{{ setting.email }}</span>
+                                </li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong>
+                                    <span>Available</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p>
+                        {{ setting.about_me }}
+                    </p>
+                </div>
+            </div>
+        </div><!-- End About Me -->
+        <!-- ======= Counts ======= -->
+        <div class="counts container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="count-box">
+                        <i class="bi bi-emoji-smile"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ setting.happy_client }}" data-purecounter-duration="1"
+                              class="purecounter"></span>
+                        <p>Happy Clients</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                    <div class="count-box">
+                        <i class="bi bi-journal-richtext"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ setting.projects_count }}" data-purecounter-duration="1"
+                              class="purecounter"></span>
+                        <p>Projects</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                    <div class="count-box">
+                        <i class="bi bi-headset"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ setting.hours_of_support }}" data-purecounter-duration="1"
+                              class="purecounter"></span>
+                        <p>Hours Of Support</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                    <div class="count-box">
+                        <i class="bi bi-award"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ setting.awards }}" data-purecounter-duration="1"
+                              class="purecounter"></span>
+                        <p>Awards</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Counts -->
+        <!-- ======= Skills  ======= -->
+        <div class="skills container">
+            <div class="section-title">
+                <h2>Skills</h2>
+            </div>
+            <div class="row skills-content">
+                {% for skill in skills %}
+                    <div class="progress col-lg-6">
+                        <span class="skill">{{ skill.title }} <i class="val">{{ skill.value }}%</i></span>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.value }}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!-- End Skills -->
+    </section><!-- End About Section -->
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resume</h2>
+                <p>Check My Resume</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="resume-title">Sumary</h3>
+                    <div class="resume-item pb-0">
+                        <h4>Farzin Shams</h4>
+                        <p><em>{{ setting.description }}</em></p>
+                        <p>
+                        <ul>
+                            <li>{{ setting.address }}</li>
+                            <li><a href="tel:{{ setting.mobile }}">{{ setting.mobile }}</a></li>
+                            <li><a href="mailto:{{ setting.email }}">{{ setting.email }}</a></li>
+                        </ul>
+                        </p>
+                    </div>
+                    <h3 class="resume-title">Education</h3>
+                    <div class="resume-item">
+                        <h4>Bachelor of Architecture</h4>
+                        <h5>2010 - 2014</h5>
+                        <p><em>Marlik University, Noshahr, Mazandaran Province</em></p>
+                        <p>I studied architecture in 2010 and received a bachelor's degree from Marlik University for
+                            four years. During this time I was also learning site design.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="resume-title">Professional Experience</h3>
+                    <div class="resume-item">
+                        <h4>Senior digital marketing specialist</h4>
+                        <h5>2021 - present</h5>
+                        <p><em>EG startup, Tehran, Iran</em></p>
+                        <p>
+                        <ul>
+                            <li>Idea maker in the field of digital advertising
+                            </li>
+                            <li>Content strategy and planning
+                            </li>
+                            <li>website designer and SEO specialist
+                            </li>
+                            <li>Advice on how to produce content and schedule tasks
+                            </li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Senior website design specialist</h4>
+                        <h5>2019 - 2021</h5>
+                        <p><em>Branding Agency, Tehran, Iran</em></p>
+                        <p>
+                        <ul>
+                            <li>Website design of this agency with WordPress
+                            </li>
+                            <li>Simultaneous support of 7 sites and redesign of sites if needed
+                            </li>
+                            <li>website designer and SEO specialist
+                            </li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>digital marketing specialist</h4>
+                        <h5>2018 - 2019</h5>
+                        <p><em>Admin and developer, Tehran, Iran</em></p>
+                        <p>
+                        <ul>
+                            <li>Website Support
+                            </li>
+                            <li>Social Network Admin
+                            <li>Sales and marketing
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Resume Section -->
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Services</h2>
+                <p>My Services</p>
+            </div>
+            <div class="row">
+                {% for service in services %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box">
+                            <div class="icon"><i class="{{ service.class_icon }}"></i></div>
+                            <h4><a href="">{{ service.title }}</a></h4>
+                            <p>{{ service.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section><!-- End Services Section -->
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portfolio</h2>
+                <p>My Works</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-active">All</li>
+                        {% for category in categories %}
+                            <li data-filter=".filter-{{ category.name }}">{{ category.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row portfolio-container">
+                {% for item in project %}
+                    <div class="col-lg-4 col-md-6 portfolio-item  filter-{{ item.categories.first.name }}">
+                        <div class="portfolio-wrap">
+                            <img src="{{ item.image.url }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4 class="text-capitalize">{{ item.title }}</h4>
+                                <p>{{ item.categories.first.name }}</p>
+                                <div class="portfolio-links">
+                                    <a href="{{ item.image.url }}"
+                                       data-gallery="portfolioGallery"
+                                       class="portfolio-lightbox" title="{{ item.title }}"><i
+                                            class="bx bx-plus"></i></a>
+                                    {#                                    <a href="{{ item.get_absolute_url }}">t</a>#}
+                                    <a href="{{ item.get_absolute_url }}" data-gallery="portfolioDetailsGallery"
+                                       data-glightbox="type: external" class=""
+                                       title="Portfolio Details"><i class="bx bx-link"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section><!-- End Portfolio Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>Contact Me</p>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 d-flex align-items-stretch">
+                    <div class="info-box">
+                        <i class="bx bx-map"></i>
+                        <h3>My Address</h3>
+                        <p>{{ setting.address }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
+                    <div class="info-box">
+                        <i class="bx bx-share-alt"></i>
+                        <h3>Social Profiles</h3>
+                        <div class="social-links">
+                            <a href="{{ setting.twitter }}" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="{{ setting.instagram }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="{{ setting.linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 d-flex align-items-stretch">
+                    <div class="info-box">
+                        <i class="bx bx-envelope"></i>
+                        <h3>Email Me</h3>
+                        <p>{{ setting.email }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 d-flex align-items-stretch">
+                    <div class="info-box">
+                        <i class="bx bx-phone-call"></i>
+                        <h3>Call Me</h3>
+                        <p>{{ setting.mobile }}</p>
+                    </div>
+                </div>
+            </div>
+            {% include 'contact_us.html' %}
+        </div>
+    </section><!-- End Contact Section -->
+{% endblock %}
