@@ -14,7 +14,7 @@ class SiteSetting(models.Model):
     fav_icon = models.ImageField(upload_to=upload_image_path, null=True)
     address = models.CharField(max_length=400)
     mobile = models.CharField(max_length=50)
-    twitter = models.CharField(max_length=50)
+    github = models.CharField(max_length=50)
     instagram = models.CharField(max_length=50)
     linkedin = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
