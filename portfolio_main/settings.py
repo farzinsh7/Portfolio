@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'portfolio_settings',
     'portfolio_contact',
-    'portfolio_skills',
     'portfolio_resume',
 ]
 

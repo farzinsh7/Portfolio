@@ -17,13 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from portfolio_main import settings
-from portfolio_main.views import home_page
 
 
 urlpatterns = [
-    path('', home_page),
-    path('', include("portfolio_resume.urls")),
     path('admin/', admin.site.urls),
+    path('', include("portfolio_settings.urls")),
+    path('', include("portfolio_resume.urls")),
 ]
 
 

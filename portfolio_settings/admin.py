@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SiteSetting
+from .models import SiteSetting, MySkills
 
 
 class SettingsAdmin(admin.ModelAdmin):
@@ -10,3 +10,4 @@ class SettingsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SiteSetting,SettingsAdmin)
+admin.site.register(MySkills)
