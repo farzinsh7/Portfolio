@@ -19,11 +19,11 @@
             <h2 class="portfolio-title">This is an example of portfolio detail</h2>
             <div class="portfolio-details-slider swiper-container">
               <div class="swiper-wrapper align-items-center">
-                {% for item in galleries %}
+                {% for item in resume.galleries.all %}
                   <div class="swiper-slide">
-                  <img class="img-fluid" src="{{ item.image.url }}" alt="">
+                  <img class="img-fluid" src="{{ item.image.url }}" alt="{{ item.title}}">
                 </div>
-                  {% endfor %}
+                {% endfor %}
               </div>
               <div class="swiper-pagination"></div>
             </div>

@@ -26,7 +26,7 @@ urlpatterns = [
 ]
 
 
-if not settings.DEBUG:
+if settings.DEBUG:
     # add root static files
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # add media static files
