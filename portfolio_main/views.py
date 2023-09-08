@@ -4,6 +4,7 @@ from portfolio_contact.models import ContactUS
 from portfolio_resume.models import ResumeCategory, Resume, Services
 from portfolio_settings.models import SiteSetting
 from portfolio_skills.models import MySkills
+from datetime import datetime
 
 
 def home_page(request):
@@ -13,6 +14,9 @@ def home_page(request):
     categories = ResumeCategory.objects.all()
     project = Resume.objects.get_queryset().all()
     services = Services.objects.all()
+    birth_year = 1990
+    current_year = datetime.now().year
+    age = current_year - birth_year
     if contact_form.is_valid():
         full_name = contact_form.cleaned_data.get('full_name')
         email = contact_form.cleaned_data.get('email')
@@ -29,6 +33,7 @@ def home_page(request):
         'categories': categories,
         'project': project,
         'services': services,
+        'age': age,
     }
     return render(request, 'home_page.html', context)
 
