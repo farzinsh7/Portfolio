@@ -14,9 +14,6 @@ class SiteSetting(models.Model):
     fav_icon = models.ImageField(upload_to=upload_image_path, null=True)
     address = models.CharField(max_length=400)
     mobile = models.CharField(max_length=50)
-    github = models.CharField(max_length=50)
-    instagram = models.CharField(max_length=50)
-    linkedin = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     happy_client = models.IntegerField(null=True)
     projects_count = models.IntegerField(null=True)
@@ -27,7 +24,15 @@ class SiteSetting(models.Model):
         return self.siteTitle
 
 
-from django.db import models
+class SocialMedias(models.Model):
+    title = models.CharField(max_length=120)
+    icon = models.CharField(null=True, max_length=200)
+    link = models.CharField(max_length=200,blank=True,null=True)
+    site_setting = models.ForeignKey(SiteSetting, null=True, on_delete=models.SET_NULL, related_name='socials')
+
+    def __str__(self):
+        return self.title
+
 
 
 class MySkills(models.Model):
@@ -37,3 +42,12 @@ class MySkills(models.Model):
     def __str__(self):
         return self.title
 
+
+
+class Services(models.Model):
+    title = models.CharField(max_length=25)
+    description = models.TextField(max_length=100)
+    class_icon = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title

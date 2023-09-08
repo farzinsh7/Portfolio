@@ -1,7 +1,15 @@
 from django.contrib import admin
-from portfolio_resume.models import Resume, ResumeCategory, ResumeGallery, Services
+from portfolio_resume.models import Resume, ResumeCategory, ResumeGallery
 
-admin.site.register(Resume)
+
+class ResumeGalleryAdmin(admin.TabularInline):
+    model = ResumeGallery
+    extra = 1
+    max_num = 10
+
+@admin.register(Resume)
+class ResumeAdmin(admin.ModelAdmin):
+    inlines = [ResumeGalleryAdmin]
+
+
 admin.site.register(ResumeCategory)
-admin.site.register(ResumeGallery)
-admin.site.register(Services)

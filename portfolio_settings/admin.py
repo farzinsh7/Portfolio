@@ -1,13 +1,16 @@
 from django.contrib import admin
-from .models import SiteSetting, MySkills
+from .models import SiteSetting, MySkills, Services, SocialMedias
 
 
-class SettingsAdmin(admin.ModelAdmin):
+class SocialMediasdmin(admin.TabularInline):
+    model = SocialMedias
+    extra = 1
+    max_num = 10
+
+@admin.register(SiteSetting)
+class ResumeAdmin(admin.ModelAdmin):
+    inlines = [SocialMediasdmin]
     list_display = ['__str__', 'email', 'mobile']
 
-    class Meta:
-        model = SiteSetting
-
-
-admin.site.register(SiteSetting,SettingsAdmin)
 admin.site.register(MySkills)
+admin.site.register(Services)

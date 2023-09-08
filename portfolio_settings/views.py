@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from portfolio_contact.forms import ContactForm
 from portfolio_contact.models import ContactUS
-from portfolio_resume.models import ResumeCategory, Resume, Services
-from .models import SiteSetting, MySkills
+from portfolio_resume.models import ResumeCategory, Resume
+from .models import SiteSetting, MySkills, Services
 from datetime import datetime
 
 

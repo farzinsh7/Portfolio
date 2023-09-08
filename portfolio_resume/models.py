@@ -62,16 +62,7 @@ class Resume(models.Model):
 class ResumeGallery(models.Model):
     title = models.CharField(max_length=120)
     image = models.ImageField(upload_to=upload_gallery_image_path)
-    project = models.ForeignKey(Resume, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return self.title
-
-
-class Services(models.Model):
-    title = models.CharField(max_length=25)
-    description = models.TextField(max_length=100)
-    class_icon = models.CharField(max_length=50)
+    project = models.ForeignKey(Resume, on_delete=models.CASCADE, null=True, related_name='galleries')
 
     def __str__(self):
         return self.title
