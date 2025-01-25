@@ -1,4 +1,5 @@
 {% extends 'shared/_MainLayout.html' %}
+{% load thumbnail %}
 {% load static %}
 {% block content %}
     <!-- ======= About Section ======= -->
@@ -11,7 +12,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-4" data-aos="fade-right">
-                    <img src="{% static 'img/me.jpg' %}" class="img-fluid" alt="">
+                    <img src="{% static 'img/me.jpg' %}" class="img-fluid" alt="فرزین-شمس">
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
                     <h3>Digital Marketer &amp; Web Developer</h3>
@@ -132,8 +133,7 @@
                         <h4>Bachelor of Architecture</h4>
                         <h5>2010 - 2014</h5>
                         <p><em>Marlik University, Noshahr, Mazandaran Province</em></p>
-                        <p>I studied architecture in 2010 and received a bachelor's degree from Marlik University for
-                            four years. During this time I was also learning site design.</p>
+                        <p>I studied architecture in 2010 and received a bachelor's degree from Marlik University. i was also being engaged in site designing.</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -161,9 +161,9 @@
                         <p><em>Branding Agency, Tehran, Iran</em></p>
                         <p>
                         <ul>
-                            <li>Website design of this agency with WordPress
+                            <li>Website designing of this agency with WordPress
                             </li>
-                            <li>Simultaneous support of 7 sites and redesign of sites if needed
+                            <li>Simultaneous support of 7 sites and redesigning of sites if needed
                             </li>
                             <li>website designer and SEO specialist
                             </li>
@@ -226,21 +226,15 @@
             </div>
             <div class="row portfolio-container">
                 {% for item in project %}
-                    <div class="col-lg-4 col-md-6 portfolio-item  filter-{{ item.categories.first.name }}">
+                    <div class="col-lg-4 col-md-6 portfolio-item {% for cat in item.categories.all  %}filter-{{ cat.name }} {% endfor %}">
                         <div class="portfolio-wrap">
-                            <img src="{{ item.image.url }}" class="img-fluid" alt="">
+                              <img class="img-fluid" src="{{ item.image.url }}" alt="{{ item.title }}">
                             <div class="portfolio-info">
                                 <h4 class="text-capitalize">{{ item.title }}</h4>
                                 <p>{{ item.categories.first.name }}</p>
                                 <div class="portfolio-links">
-                                    <a href="{{ item.image.url }}"
-                                       data-gallery="portfolioGallery"
-                                       class="portfolio-lightbox" title="{{ item.title }}"><i
-                                            class="bx bx-plus"></i></a>
-                                    {#                                    <a href="{{ item.get_absolute_url }}">t</a>#}
-                                    <a href="{{ item.get_absolute_url }}" data-gallery="portfolioDetailsGallery"
-                                       data-glightbox="type: external" class=""
-                                       title="Portfolio Details"><i class="bx bx-link"></i></a>
+                                    <a href="{{ item.image.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ item.title }}"><i class="bx bx-plus"></i></a>
+                                    <a href="{% url 'resume:detail'  item.id item.title %}" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Portfolio Details"><i class="bx bx-link"></i></a>
                                 </div>
                             </div>
                         </div>

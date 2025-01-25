@@ -28,6 +28,8 @@ urlpatterns = [
 
 if settings.DEBUG:
     # add root static files
-    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns = urlpatterns + \
+        static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # add media static files
-    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns = urlpatterns + \
+        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

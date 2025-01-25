@@ -11,7 +11,7 @@ def home_page(request):
     skills = MySkills.objects.all()
     contact_form = ContactForm(request.POST or None)
     categories = ResumeCategory.objects.all()
-    project = Resume.objects.get_queryset().all()
+    project = Resume.objects.get_queryset().all().order_by('-id')
     services = Services.objects.all()
     birth_year = 1990
     current_year = datetime.now().year
