@@ -43,7 +43,34 @@ class Resume(models.Model):
 class ResumeGallery(models.Model):
     title = models.CharField(max_length=120)
     image = models.ImageField(upload_to="resume/gallery")
-    project = models.ForeignKey(Resume, on_delete=models.CASCADE, null=True, related_name='galleries')
+    project = models.ForeignKey(
+        Resume, on_delete=models.CASCADE, null=True, related_name='galleries')
+
+    def __str__(self):
+        return self.title
+
+
+class Experience(models.Model):
+    title = models.CharField(max_length=255)
+    from_date = models.DateField(null=True, blank=True)
+    till_date = models.DateField(null=True, blank=True)
+    company = models.CharField(max_length=255)
+    description = models.TextField(max_length=300, default='description')
+    exprience = models.ForeignKey(
+        Resume, on_delete=models.CASCADE, null=True, related_name='exprience')
+
+    def __str__(self):
+        return self.title
+
+
+class Education(models.Model):
+    title = models.CharField(max_length=255)
+    from_date = models.DateField(null=True, blank=True)
+    till_date = models.DateField(null=True, blank=True)
+    university = models.CharField(max_length=255)
+    description = models.TextField(max_length=300, default='description')
+    education = models.ForeignKey(
+        Resume, on_delete=models.CASCADE, null=True, related_name='education')
 
     def __str__(self):
         return self.title
