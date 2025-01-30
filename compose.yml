@@ -1,54 +1,54 @@
 services:
 
   app:
-    build: './app'
-    container_name: 'app'
-    restart: 'always'
-    expose:
-      - 8000
-    
-    environment:
-      - "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 app"
-      - "DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost"
+    build:
+      context: .
+    container_name: 'django-app'
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --no-input --clear && 
+             gunicorn core.wsgi:application --bind 0.0.0.0:8000"
 
     volumes:
-      - type: 'bind'
-        source: './volumes/app'
-        target: '/app'
+      - static:/usr/src/app/static
+      - media:/usr/src/app/media
     
     depends_on:
-      - "portfolio_db"
-      - "nginx"
-
-  portfolio_db:
-    container_name: portfolio_db
-    image: postgres:15-alpine
-    volumes:
-      - ./volumes/dbdata:/var/lib/postgresql/data
+      - "database"
+    
     environment:
-      - POSTGRES_DB=postgres_db
-      - POSTGRES_USER=postgres_db
-      - POSTGRES_PASSWORD=postgres_db
-    expose:
-      - 5432
+      - ALLOWED_HOSTS=*
+      - DEBUG=False
+      - DATABASE-NAME=postgres
+      - DATABASE-USER=postgres
+      - DATABASE-PASSWORD=postgres
+      - DATABASE-HOST=database
+      - DATABASE-PORT=5432
+
+    
+
+  database:
+    container_name: database
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
     restart: always
 
     
   nginx:
-    build: './nginx'
+    image: nginx:alpine
     container_name: 'nginx'
-    restart: 'always'
     ports:
       - "80:80"
     
     volumes:
-      - type: 'bind'
-        source: './volumes/media'
-        target: '/app/media'
-
-      - type: 'bind'
-        source: './volumes/static'
-        target: '/app/static'
+      - ./nginx:/etc/nginx/conf.d
+      - static:/var/www/static
+      - media:/var/www/media
 
 
   smtp4dev:
@@ -65,3 +65,6 @@ services:
 
 volumes:
   smtp4dev-data:
+  postgres:
+  static:
+  media:
