@@ -1,0 +1,67 @@
+services:
+
+  app:
+    build: './app'
+    container_name: 'app'
+    restart: 'always'
+    expose:
+      - 8000
+    
+    environment:
+      - "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 app"
+      - "DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost"
+
+    volumes:
+      - type: 'bind'
+        source: './volumes/app'
+        target: '/app'
+    
+    depends_on:
+      - "portfolio_db"
+      - "nginx"
+
+  portfolio_db:
+    container_name: portfolio_db
+    image: postgres:15-alpine
+    volumes:
+      - ./volumes/dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres_db
+      - POSTGRES_USER=postgres_db
+      - POSTGRES_PASSWORD=postgres_db
+    expose:
+      - 5432
+    restart: always
+
+    
+  nginx:
+    build: './nginx'
+    container_name: 'nginx'
+    restart: 'always'
+    ports:
+      - "80:80"
+    
+    volumes:
+      - type: 'bind'
+        source: './volumes/media'
+        target: '/app/media'
+
+      - type: 'bind'
+        source: './volumes/static'
+        target: '/app/static'
+
+
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      - '5000:80'
+      - '25:25'
+      - '143:143'
+    volumes:
+      - smtp4dev-data:/smtp4dev
+    environment:
+      - ServerOptions__HostName=smtp4dev
+
+volumes:
+  smtp4dev-data:
