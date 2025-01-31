@@ -283,3 +283,4 @@ pip-selfcheck.json
 
 #Ignore Databases
 volumes/dbdata/*
+postgres/data/*
