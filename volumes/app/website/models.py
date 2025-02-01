@@ -1,4 +1,5 @@
 from django.db import models
+from colorfield.fields import ColorField
 
 
 # Create your models here.
@@ -19,7 +20,7 @@ class SocialMedias(models.Model):
     title = models.CharField(max_length=120)
     icon = models.CharField(null=True, max_length=200)
     link = models.CharField(max_length=200, blank=True, null=True)
-    website = models.ForeignKey(
+    socials = models.ForeignKey(
         Website, null=True, on_delete=models.SET_NULL, related_name='socials')
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -52,6 +53,28 @@ class Skills(models.Model):
     value = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Counter(models.Model):
+    title = models.CharField(max_length=50)
+    value = models.IntegerField(null=True)
+    icon = models.CharField(max_length=50)
+    counter = models.ForeignKey(
+        MyInformation, null=True, on_delete=models.SET_NULL, related_name='counter')
+
+    def __str__(self):
+        return self.title
+
+
+class InterestedIn(models.Model):
+    title = models.CharField(max_length=50)
+    color = ColorField(default='#FF0000')
+    icon = models.CharField(max_length=50)
+    interested = models.ForeignKey(
+        MyInformation, null=True, on_delete=models.SET_NULL, related_name='interested')
 
     def __str__(self):
         return self.title
