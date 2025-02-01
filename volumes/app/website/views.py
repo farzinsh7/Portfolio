@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import DetailView, TemplateView
 from django.utils.timezone import now
 from datetime import date
 from . import models
 
 
-class IndexView(TemplateView):
+class IndexView(DetailView):
     template_name = "website/index.html"
+    model = models.Website
+
+    def get_object(self, queryset=None):
+        return models.Website.objects.first()
 
 
 class AboutView(DetailView):
