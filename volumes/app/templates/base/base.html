@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}Portfolio{% endblock title %} - Farzin Shams Portfolio</title>
+    <meta name="description" content="{% block description %}{% endblock description %}" />
+    <meta name="keywords" content="{% block keywords %}{% endblock keywords %}" />
+    
+    {% include "base/_header_refrences.html" %}
+  </head>
+  <body class="index-page">
+    {% include "base/shared/header.html" %}
+
+    <main class="main">{% block content %}{% endblock content %}</main>
+
+    {% include "base/shared/footer.html" %} 
+    {% include "base/_footer_refrences.html" %}
+  </body>
+</html>
