@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
 from . import models
+from website.models import MyInformation
 
 
 class ResumeView(DetailView):
@@ -14,5 +15,6 @@ class ResumeView(DetailView):
         context = super().get_context_data(**kwargs)
         context['experience'] = models.Experience.objects.all()
         context['education'] = models.Education.objects.all()
+        context['informations'] = MyInformation.objects.first()
 
         return context

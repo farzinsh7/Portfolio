@@ -7,9 +7,6 @@ class Summary(models.Model):
     description = models.TextField(max_length=300, default='description')
     short_description = models.TextField(
         max_length=300, default='short description')
-    address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
-    email = models.EmailField()
 
     def __str__(self):
         return self.title
@@ -22,6 +19,9 @@ class Experience(models.Model):
     company = models.CharField(max_length=255, default='company')
     company_location = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=300, default='description')
+
+    class Meta:
+        ordering = ['-from_date']
 
     def __str__(self):
         return self.title
