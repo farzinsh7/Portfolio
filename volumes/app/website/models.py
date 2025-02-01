@@ -8,6 +8,8 @@ class Website(models.Model):
     about_me = models.TextField(null=True, blank=True)
     logo_image = models.ImageField(upload_to="logo", null=True)
     background_image = models.ImageField(upload_to="background", null=True)
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.site_title
@@ -19,6 +21,8 @@ class SocialMedias(models.Model):
     link = models.CharField(max_length=200, blank=True, null=True)
     website = models.ForeignKey(
         Website, null=True, on_delete=models.SET_NULL, related_name='socials')
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -26,7 +30,7 @@ class SocialMedias(models.Model):
 
 class MyInformation(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(max_length=300, default='description')
+    description = models.TextField(default='description')
     image = models.ImageField(upload_to="photo")
     birth_date = models.DateField()
     website = models.CharField(max_length=255)
@@ -36,6 +40,8 @@ class MyInformation(models.Model):
     degree = models.CharField(max_length=255)
     email = models.EmailField()
     freelance = models.BooleanField()
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -44,6 +50,8 @@ class MyInformation(models.Model):
 class Skills(models.Model):
     title = models.CharField(max_length=50)
     value = models.IntegerField(default=0)
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
