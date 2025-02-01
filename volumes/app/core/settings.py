@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'accounts',
     'website',
+    'resume',
 ]
 
 MIDDLEWARE = [
