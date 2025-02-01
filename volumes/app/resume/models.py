@@ -19,7 +19,7 @@ class Experience(models.Model):
     title = models.CharField(max_length=255)
     from_date = models.DateField(null=True, blank=True)
     till_date = models.DateField(null=True, blank=True)
-    company = models.CharField(max_length=255)
+    company = models.CharField(max_length=255, default='company')
     company_location = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=300, default='description')
 
@@ -31,8 +31,9 @@ class Education(models.Model):
     title = models.CharField(max_length=255)
     from_date = models.DateField(null=True, blank=True)
     till_date = models.DateField(null=True, blank=True)
-    university = models.CharField(max_length=255, null=True, blank=True)
-    university_location = models.CharField(max_length=255)
+    university = models.CharField(max_length=255, default='university')
+    university_location = models.CharField(
+        max_length=255, null=True, blank=True)
     description = models.TextField(max_length=300, default='description')
 
     def __str__(self):
