@@ -9,6 +9,7 @@
     <meta name="keywords" content="{% block keywords %}{% endblock keywords %}" />
     
     {% include "base/_header_refrences.html" %}
+    {% block extra_css %}{% endblock extra_css %} 
   </head>
   <body class="index-page">
     {% include "base/shared/header.html" %}
@@ -17,5 +18,6 @@
 
     {% include "base/shared/footer.html" %} 
     {% include "base/_footer_refrences.html" %}
+    {% block extra_js %} {% endblock extra_js %}
   </body>
 </html>
