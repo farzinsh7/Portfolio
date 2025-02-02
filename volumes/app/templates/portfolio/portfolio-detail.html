@@ -6,16 +6,7 @@
 {% block content %}
 <!-- Page Title -->
 <div class="page-title" data-aos="fade">
-    <div class="heading">
-    <div class="container">
-        <div class="row d-flex justify-content-center text-center">
-        <div class="col-lg-8">
-            <h1>Portfolio Details</h1>
-            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
-        </div>
-        </div>
-    </div>
-    </div>
+    <div class="heading"></div>
     <nav class="breadcrumbs">
     <div class="container">
         <ol>
@@ -54,22 +45,11 @@
 
             <div class="swiper-wrapper align-items-center">
 
+            {% for item in object.gallery.all %}
             <div class="swiper-slide">
-                <img src="assets/img/portfolio/app-1.jpg" alt="">
+                <img src="{{ item.image.url }}" alt="">
             </div>
-
-            <div class="swiper-slide">
-                <img src="assets/img/portfolio/product-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-                <img src="assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
+            {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -79,17 +59,15 @@
         <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
             <h3>Project information</h3>
             <ul>
-            <li><strong>Category</strong>: Web design</li>
-            <li><strong>Client</strong>: ASU Company</li>
-            <li><strong>Project date</strong>: 01 March, 2020</li>
-            <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+            <li><strong>Category</strong>: {% for category in object.categories.all %}{{category.title}}{% endfor %}</li>
+            <li><strong>Client</strong>: {{ object.client }}</li>
+            <li><strong>Project date</strong>: {{ object.project_date|date:"M d, Y"  }}</li>
+            <li><strong>Project URL</strong>: <a href="#">{{ object.website }}</a></li>
             </ul>
         </div>
         <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-            <h2>Exercitationem repudiandae officiis neque suscipit</h2>
-            <p>
-            Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-            </p>
+            <h2>{{ object.title }}</h2>
+            <p>{{ object.description }}</p>
         </div>
         </div>
 
