@@ -4,5 +4,61 @@
 {% block description %}{% endblock description %}
 {% block keywords %}{% endblock keywords %}
 {% block content %}
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+    <div class="heading">
+    <div class="container">
+        <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+            <h1>Portfolio</h1>
+            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+        </div>
+        </div>
+    </div>
+    </div>
+    <nav class="breadcrumbs">
+    <div class="container">
+        <ol>
+        <li><a href="{% url "website:index" %}">Home</a></li>
+        <li class="current">Portfolio</li>
+        </ol>
+    </div>
+    </nav>
+</div><!-- End Page Title -->
 
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+
+    <div class="container">
+
+    <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <ul id="portfolio-flters" class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            {% for category in categories %}
+            <li data-filter=".filter-{{ category.name }}">{{ category.title }}</li>
+            {% endfor %}
+        </ul>
+        <!-- End Portfolio Filters -->
+
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+        {% for object in object_list %}
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item {% for category in object.categories.all  %}filter-{{ category.name }} {% endfor %}">
+            <div class="portfolio-content h-100">
+            <img src="{{ object.thumbnail.url }}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+                <h4>{{ object.title }}</h4>
+                <p>Lorem ipsum, dolor sit amet consectetur</p>
+                <a href="{{ object.thumbnail.url }}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="{% url "portfolio:portfolio-detail" pk=object.pk %}" title="{{ object.title }}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+            </div>
+        </div><!-- End Portfolio Item -->
+        {% endfor %}
+        </div><!-- End Portfolio Container -->
+    </div>
+    </div>
+</section>
+<!-- /Portfolio Section -->
 {% endblock content %}

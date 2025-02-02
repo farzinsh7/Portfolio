@@ -12,8 +12,8 @@
         <li><a href="{% url "website:index" %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">Home</a></li>
         <li><a href="{% url "website:about" %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
         <li><a href="{% url "resume:resume-detail" %}" class="{% if request.resolver_match.url_name == 'resume-detail' %}active{% endif %}">Resume</a></li>
-        <li><a href="{% url "services:services-list" %}" class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="{% url "services:services-list" %}" class="{% if request.resolver_match.url_name == 'services-list' %}active{% endif %}">Services</a></li>
+        <li><a href="{% url "portfolio:portfolio-list" %}" class="{% if request.resolver_match.url_name == 'portfolio-list' %}active{% endif %}" >Portfolio</a></li>
         <li><a href="{% url "website:contact" %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
       </ul>
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
