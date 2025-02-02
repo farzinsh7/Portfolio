@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'website',
     'resume',
     'services',
+    'portfolio',
 ]
 
 MIDDLEWARE = [
