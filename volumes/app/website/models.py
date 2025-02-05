@@ -78,3 +78,19 @@ class InterestedIn(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ContactUs(models.Model):
+    full_name = models.CharField(max_length=300)
+    subject = models.CharField(max_length=300)
+    email = models.EmailField(null=True)
+    message = models.TextField(null=True)
+    status = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_date']
+
+    def __str__(self):
+        return f"{self.full_name}"

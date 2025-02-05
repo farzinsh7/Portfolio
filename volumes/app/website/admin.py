@@ -32,3 +32,4 @@ class MyInformationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Skills)
+admin.site.register(models.ContactUs)

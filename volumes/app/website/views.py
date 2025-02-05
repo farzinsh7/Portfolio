@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
-from django.utils.timezone import now
+from django.views.generic import DetailView, CreateView
 from datetime import date
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from . import models
+from .forms import ContactFormClass
 
 
 class IndexView(DetailView):
@@ -39,5 +40,9 @@ class AboutView(DetailView):
         return context
 
 
-class ContactView(TemplateView):
+class ContactView(SuccessMessageMixin, CreateView):
     template_name = "website/contact.html"
+    form_class = ContactFormClass
+    success_url = reverse_lazy("website:contact")
+    template_name = "website/contact.html"
+    success_message = "Your message has been sent. Thank you!"

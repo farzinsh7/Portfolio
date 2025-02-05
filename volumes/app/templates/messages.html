@@ -5,7 +5,7 @@
         text: `{{ message|safe }}`,
         className: `alert-{{ message.tags }}`,
         style: {
-          background: "{% if 'error' in message.tags %}red{% else %}blue{% endif %}",
+          background: "{% if 'error' in message.tags %}linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(227,162,162,1) 50%){% else %}linear-gradient(90deg, rgba(24,210,110,1) 0%, rgba(139,203,169,1) 50%){% endif %}",
         }
     }).showToast();
 </script>
@@ -22,7 +22,7 @@
                 text: `{{ error|escape }}`,
                 className: "error",
                 style: {
-                  background: "red",
+                  background: "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(227,162,162,1) 50%)",
                 }
             }).showToast();
         </script>
@@ -36,7 +36,7 @@
             text: `{{ form.non_field_errors.as_text }}`,
             className: "error",
             style: {
-              background: "red",
+              background: "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(227,162,162,1) 50%)",
             }
         }).showToast();
     </script>

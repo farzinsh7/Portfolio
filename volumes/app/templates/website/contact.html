@@ -69,11 +69,9 @@
             <div>
             <h3>Social Profiles</h3>
             <div class="social-links">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-skype"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
+                {% for social in website.socials.all %}
+                <a href="{{social.link}}"><i class="{{social.icon}}"></i></a>
+                {% endfor %}
             </div>
             </div>
         </div>
@@ -81,30 +79,27 @@
 
     </div>
 
-    <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
+    <form action="{% url 'website:contact' %}" class="php-email-form" method="post" >
+        {% csrf_token %}
         <div class="row gy-4">
 
         <div class="col-md-6">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+            {{ form.full_name }}
         </div>
 
         <div class="col-md-6 ">
-            <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+            {{ form.email }}
         </div>
 
         <div class="col-md-12">
-            <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+            {{ form.subject }}
         </div>
 
         <div class="col-md-12">
-            <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+            {{ form.message }}
         </div>
 
         <div class="col-md-12 text-center">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-
             <button type="submit">Send Message</button>
         </div>
 
