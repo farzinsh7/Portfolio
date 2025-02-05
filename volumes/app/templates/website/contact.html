@@ -7,14 +7,7 @@
 <!-- Page Title -->
 <div class="page-title" data-aos="fade">
     <div class="heading">
-    <div class="container">
-        <div class="row d-flex justify-content-center text-center">
-        <div class="col-lg-8">
-            <h1>Contact</h1>
-            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
-        </div>
-        </div>
-    </div>
+    
     </div>
     <nav class="breadcrumbs">
     <div class="container">
@@ -37,8 +30,8 @@
         <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
             <i class="icon bi bi-geo-alt flex-shrink-0"></i>
             <div>
-            <h3>Address</h3>
-            <p>A108 Adam Street, New York, NY 535022</p>
+            <h3>City</h3>
+            <p>{{ my_information.city }}</p>
             </div>
         </div>
         </div><!-- End Info Item -->
@@ -48,7 +41,7 @@
             <i class="icon bi bi-telephone flex-shrink-0"></i>
             <div>
             <h3>Call Me</h3>
-            <p>+1 5589 55488 55</p>
+            <p>{{ my_information.phone }}</p>
             </div>
         </div>
         </div><!-- End Info Item -->
@@ -58,7 +51,7 @@
             <i class="icon bi bi-envelope flex-shrink-0"></i>
             <div>
             <h3>Email Us</h3>
-            <p>info@example.com</p>
+            <p>{{ my_information.email }}</p>
             </div>
         </div>
         </div><!-- End Info Item -->

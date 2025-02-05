@@ -46,3 +46,9 @@ class ContactView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("website:contact")
     template_name = "website/contact.html"
     success_message = "Your message has been sent. Thank you!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["my_information"] = models.MyInformation.objects.first()
+
+        return context
