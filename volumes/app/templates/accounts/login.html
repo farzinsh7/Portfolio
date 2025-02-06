@@ -10,6 +10,7 @@
     <title>Dashboard - Login</title>
     <meta name="description" content="" />
     <!-- Core CSS -->
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'dashboard/vendor/css/core.css' %}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{% static 'dashboard/vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
     <!-- Page CSS -->
@@ -40,6 +41,7 @@
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
+                <label for="email" class="form-label">Password</label>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
@@ -49,7 +51,7 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide">show me</i></span>
+                    <span class="input-group-text cursor-pointer"><i class="bi bi-eye"></i></span>
                   </div>
                 </div>
                 <div class="mb-3">
@@ -58,14 +60,10 @@
               </form>
             </div>
           </div>
-          <!-- /Register -->
         </div>
       </div>
     </div>
-
-    <script src="{% static 'dashboard/vendor/js/bootstrap.js' %}"></script>
-
-    <!-- endbuild -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Main JS -->
     <script src="{% static 'dashboard/js/main.js' %}"></script>
   </body>
