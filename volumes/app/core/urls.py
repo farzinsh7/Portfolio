@@ -22,6 +22,7 @@ from core import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('', include("website.urls")),
     path('', include("resume.urls")),
     path('', include("services.urls")),
