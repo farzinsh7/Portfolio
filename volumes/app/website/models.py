@@ -37,7 +37,6 @@ class MyInformation(models.Model):
     website = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
     city = models.CharField(max_length=255)
-    birth_date = models.DateField()
     degree = models.CharField(max_length=255)
     email = models.EmailField()
     freelance = models.BooleanField()
