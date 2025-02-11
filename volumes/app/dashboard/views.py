@@ -13,7 +13,7 @@ class DashboardHomeView(LoginRequiredMixin, TemplateView):
 
 class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "dashboard/information.html"
-    model = MyInformation
+    success_url = reverse_lazy("dashboard:information")
     success_message = "The information was updated successfully."
     form_class = InformationForm
 

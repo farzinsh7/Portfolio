@@ -8,48 +8,69 @@
       <div class="col-xl">
         <div class="card mb-4">
           <div class="card-body">
-            <form>
-              <div class="mb-3">
-                <label class="form-label" for="basic-default-fullname">Full Name</label>
-                <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="basic-default-company">Company</label>
-                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="basic-default-email">Email</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    type="text"
-                    id="basic-default-email"
-                    class="form-control"
-                    placeholder="john.doe"
-                    aria-label="john.doe"
-                    aria-describedby="basic-default-email2"
-                  />
-                  <span class="input-group-text" id="basic-default-email2">@example.com</span>
+            <form action="{% url "dashboard:information" %}" enctype="multipart/form-data" method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label">Title</label>
+                  {{ form.title }}
                 </div>
-                <div class="form-text">You can use letters, numbers & periods</div>
+                <div class="mb-3 col-6">
+                  <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                      <img src="{{ object.image.url }}" alt="user-image" class="img-fluid w-25 d-block rounded" id="uploadedImage">
+                      <div class="button-wrapper">
+                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                              <span class="d-none d-sm-block">Upload new Image</span>
+                              <i class="bx bx-upload d-block d-sm-none"></i>
+                              <input type="file" name="image" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg">
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label" for="basic-default-phone">Phone No</label>
-                <input
-                  type="text"
-                  id="basic-default-phone"
-                  class="form-control phone-mask"
-                  placeholder="658 799 8941"
-                />
+              <div class="row">
+                <div class="mb-3  col-6">
+                  <label class="form-label">Birth_date</label>
+                  {{ form.birth_date }}
+                </div>
+                <div class="mb-3  col-6">
+                  <label class="form-label">Website</label>
+                  {{ form.website }}
+                </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label" for="basic-default-message">Message</label>
-                <textarea
-                  id="basic-default-message"
-                  class="form-control"
-                  placeholder="Hi, Do you have a moment to talk Joe?"
-                ></textarea>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label">Phone</label>
+                  {{ form.phone }}
+                </div>
+                <div class="mb-3 col-6">
+                  <label class="form-label">City</label>
+                  {{ form.city }}
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">Send</button>
+              <div class="row">
+                <div class="mb-3 col-6">
+                  <label class="form-label">Degree</label>
+                  {{ form.degree }}
+                </div>
+                <div class="mb-3 col-6">
+                  <label class="form-label">Email</label>
+                  {{ form.email }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-10">
+                  <label class="form-label">Description</label>
+                  {{ form.description }}
+                </div>
+                <div class="mb-3 col-2 align-content-center">
+                  <label class="form-label">Freelance</label>
+                  {{ form.freelance }}
+                </div>
+              </div>              
+              <button type="submit" class="btn btn-primary">Update</button>
             </form>
           </div>
         </div>
@@ -58,3 +79,17 @@
 </div>
 <!-- / Content -->
 {% endblock content %}
+{% block extra_js %}
+<script>
+  document.getElementById('upload').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              document.getElementById('uploadedImage').src = e.target.result;
+          }
+          reader.readAsDataURL(file);
+      }
+  });
+</script>
+{% endblock extra_js %}
