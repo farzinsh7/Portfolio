@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, ListView, DeleteView, CreateView, TemplateView
+from django.views.generic import UpdateView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import InformationForm
+from .forms import InformationForm, CounterFormSet, InterestedFormSet
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation
+from django.shortcuts import redirect
 
 
 class DashboardHomeView(LoginRequiredMixin, TemplateView):
@@ -19,3 +20,39 @@ class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return MyInformation.objects.first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Ensure `object` is available in template
+        context["object"] = self.get_object()
+
+        # Get formsets for Counter and InterestedIn
+        if self.request.POST:
+            context["counter_formset"] = CounterFormSet(
+                self.request.POST, instance=context["object"])
+            context["interested_formset"] = InterestedFormSet(
+                self.request.POST, instance=context["object"])
+        else:
+            context["counter_formset"] = CounterFormSet(
+                instance=context["object"])
+            context["interested_formset"] = InterestedFormSet(
+                instance=context["object"])
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        counter_formset = context["counter_formset"]
+        interested_formset = context["interested_formset"]
+
+        if counter_formset.is_valid() and interested_formset.is_valid():
+            self.object = form.save()  # Save the MyInformation form
+            # Attach the instance for saving Counter
+            counter_formset.instance = self.object
+            # Attach the instance for saving InterestedIn
+            interested_formset.instance = self.object
+            counter_formset.save()  # Save the Counter formset
+            interested_formset.save()  # Save the InterestedIn formset
+            return super().form_valid(form)  # Proceed with the usual form_valid process
+        else:
+            return self.form_invalid(form)
