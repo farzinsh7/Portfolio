@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Counter, InterestedIn, Skills, Website, SocialMedias
-from resume.models import Summary
+from resume.models import Summary, Experience, Education
 from django.forms import inlineformset_factory, BaseInlineFormSet
 
 
@@ -127,3 +127,25 @@ class SummaryForm(forms.ModelForm):
         self.fields['title'].widget.attrs['class'] = "form-control"
         self.fields['description'].widget.attrs['class'] = "form-control"
         self.fields['short_description'].widget.attrs['class'] = "form-control"
+
+
+class ExperienceForm(forms.ModelForm):
+    class Meta:
+        model = Experience
+        fields = [
+            "title",
+            "from_date",
+            "till_date",
+            "company",
+            "company_location",
+            "description",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['class'] = "form-control"
+        self.fields['from_date'].widget.attrs['class'] = "form-control"
+        self.fields['till_date'].widget.attrs['class'] = "form-control"
+        self.fields['company'].widget.attrs['class'] = "form-control"
+        self.fields['company_location'].widget.attrs['class'] = "form-control"
+        self.fields['description'].widget.attrs['class'] = "form-control"

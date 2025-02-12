@@ -20,4 +20,15 @@ urlpatterns = [
     # summary
     path("summary/", views.AdminSummaryView.as_view(), name="summary"),
 
+
+    # experience
+    #     path("experience/create/",
+    #          views.AdminExperienceCreateView.as_view(), name="experience-create"),
+    path("experience/", views.AdminExperienceListview.as_view(),
+         name="experience-list"),
+    #     path("experience/<int:pk>/update/",
+    #          views.AdminExperienceUpdateview.as_view(), name="experience-update"),
+    #     path("experience/<int:pk>/delete/",
+    #          views.AdminExperienceDeleteView.as_view(), name="experience-delete"),
+
 ]

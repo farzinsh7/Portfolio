@@ -54,8 +54,8 @@
           <div>Summary</div>
         </a>
       </li>
-      <li class="menu-item ">
-        <a href="#" class="menu-link">
+      <li class="menu-item {% if request.resolver_match.url_name == 'experience-list' %}active{% endif %}">
+        <a href="{% url "dashboard:experience-list" %}" class="menu-link">
           <i class="menu-icon bi bi-award"></i>
           <div>Experiences</div>
         </a>

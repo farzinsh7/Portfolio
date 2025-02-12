@@ -13,7 +13,7 @@ from .forms import (
 )
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
-from resume.models import Summary
+from resume.models import Summary, Experience, Education
 from django.shortcuts import redirect
 
 
@@ -154,3 +154,9 @@ class AdminSummaryView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return Summary.objects.first()
+
+
+class AdminExperienceListview(LoginRequiredMixin, ListView):
+    template_name = "dashboard/resume/experience-list.html"
+    success_url = reverse_lazy("dashboard:experiences-list")
+    queryset = Experience.objects.all()
