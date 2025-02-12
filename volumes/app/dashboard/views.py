@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, TemplateView
+from django.views.generic import UpdateView, TemplateView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import InformationForm, CounterFormSet, InterestedFormSet
+from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm
 from django.utils.translation import gettext_lazy as _
-from website.models import MyInformation
+from website.models import MyInformation, Skills
 from django.shortcuts import redirect
 
 
@@ -13,7 +13,7 @@ class DashboardHomeView(LoginRequiredMixin, TemplateView):
 
 
 class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    template_name = "dashboard/information.html"
+    template_name = "dashboard/information/information.html"
     success_url = reverse_lazy("dashboard:information")
     success_message = "The information was updated successfully."
     form_class = InformationForm
@@ -56,3 +56,19 @@ class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return super().form_valid(form)  # Proceed with the usual form_valid process
         else:
             return self.form_invalid(form)
+
+
+class AdminSkillListview(LoginRequiredMixin, ListView):
+    template_name = "dashboard/skills/skill-list.html"
+    success_url = reverse_lazy("dashboard:skills-list")
+    queryset = Skills.objects.all()
+
+
+class AdminSkillUpdateview(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/skills/skill-update.html"
+    queryset = Skills.objects.all()
+    form_class = SkillsForm
+    success_message = "The skill was updated successfully."
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:skill-update", kwargs={"pk": self.get_object().pk})

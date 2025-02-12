@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from colorfield.fields import ColorField
 
 
@@ -25,6 +26,9 @@ class SocialMedias(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created_date']
+
     def __str__(self):
         return self.title
 
@@ -49,9 +53,13 @@ class MyInformation(models.Model):
 
 class Skills(models.Model):
     title = models.CharField(max_length=50)
-    value = models.IntegerField(default=0)
+    value = models.IntegerField(default=0, validators=[
+                                MinValueValidator(0), MaxValueValidator(100)])
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_date']
 
     def __str__(self):
         return self.title

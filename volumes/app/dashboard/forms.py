@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from website.models import MyInformation, Counter, InterestedIn
+from website.models import MyInformation, Counter, InterestedIn, Skills
 from django.forms import inlineformset_factory, BaseInlineFormSet
 
 
@@ -61,3 +61,17 @@ CounterFormSet = inlineformset_factory(MyInformation, Counter, fields=[
                                        'title', 'value', 'icon'], extra=1, can_delete=True, formset=BaseCounterFormSet)
 InterestedFormSet = inlineformset_factory(MyInformation, InterestedIn, fields=[
                                           'title', 'color', 'icon'], extra=1, can_delete=True, formset=BaseInterestedFormSet)
+
+
+class SkillsForm(forms.ModelForm):
+    class Meta:
+        model = Skills
+        fields = [
+            "title",
+            "value",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['class'] = "form-control"
+        self.fields['value'].widget.attrs['class'] = "form-control"
