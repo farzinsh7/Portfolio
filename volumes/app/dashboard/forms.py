@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Counter, InterestedIn, Skills, Website, SocialMedias
+from resume.models import Summary
 from django.forms import inlineformset_factory, BaseInlineFormSet
 
 
@@ -110,3 +111,19 @@ class SkillsForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['class'] = "form-control"
         self.fields['value'].widget.attrs['class'] = "form-control"
+
+
+class SummaryForm(forms.ModelForm):
+    class Meta:
+        model = Summary
+        fields = [
+            "title",
+            "description",
+            "short_description",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['class'] = "form-control"
+        self.fields['description'].widget.attrs['class'] = "form-control"
+        self.fields['short_description'].widget.attrs['class'] = "form-control"

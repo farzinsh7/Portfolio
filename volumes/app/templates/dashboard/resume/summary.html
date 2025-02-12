@@ -1,0 +1,32 @@
+{% extends "dashboard/base/base.html" %}
+{% block title %}Summary{% endblock title %}
+{% block content %}
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span>Summary</h4>
+    <div class="row">
+        <div class="col-xl">
+            <form action="{% url 'dashboard:summary' %}" method="post">
+                {% csrf_token %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            {{ form.description }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Short Description</label>
+                            {{ form.short_description }}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

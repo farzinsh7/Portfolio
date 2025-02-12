@@ -2,9 +2,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, TemplateView, ListView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm, WebsiteForm, SocialFormSet
+from .forms import (
+    InformationForm,
+    CounterFormSet,
+    InterestedFormSet,
+    SkillsForm,
+    WebsiteForm,
+    SocialFormSet,
+    SummaryForm,
+)
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
+from resume.models import Summary
 from django.shortcuts import redirect
 
 
@@ -132,3 +141,16 @@ class AdminWebsiteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
+
+# --------------- End Primary Information ---------------
+
+
+# --------------- Start Resume ---------------
+class AdminSummaryView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/resume/summary.html"
+    success_url = reverse_lazy("dashboard:summary")
+    success_message = "The Summary was updated successfully."
+    form_class = SummaryForm
+
+    def get_object(self, queryset=None):
+        return Summary.objects.first()
