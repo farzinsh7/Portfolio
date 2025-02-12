@@ -91,13 +91,17 @@
                                         {% for field in form.hidden_fields %}{{ field }}{% endfor %}
                                         <td>{{ form.title }}</td>
                                         <td>{{ form.value }}</td>
-                                        <td>{{ form.icon }}</td>
+                                        <td>
+                                          <div class="input-group">
+                                            {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
+                                          </div>
+                                        </td>
                                         <td>{{ form.DELETE }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-success" id="add-counter">Add New Counter</button>
+                        <button type="button" class="btn btn-outline-primary mt-3" id="add-counter">Add New Counter</button>
 
                         <hr>
 
@@ -119,13 +123,17 @@
                                         {% for field in form.hidden_fields %}{{ field }}{% endfor %}
                                         <td>{{ form.title }}</td>
                                         <td>{{ form.color }}</td>
-                                        <td>{{ form.icon }}</td>
+                                        <td>
+                                          <div class="input-group">
+                                          {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
+                                          </div>
+                                      </td>
                                         <td>{{ form.DELETE }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-success" id="add-interested">Add New Interest</button>
+                        <button type="button" class="btn btn-outline-primary mt-3" id="add-interested">Add New Interest</button>
                         <hr>
                         <button type="submit" class="btn btn-primary mt-3">Update</button>
                     </form>
