@@ -1018,12 +1018,13 @@ section,
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  color: #18d26e;
   margin-bottom: 10px;
 }
 
 .resume .resume-item h5 {
   font-size: 16px;
+  background: rgba(255, 255, 255, 0.15);
   padding: 5px 15px;
   display: inline-block;
   font-weight: 600;

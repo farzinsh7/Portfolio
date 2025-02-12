@@ -31,4 +31,7 @@ urlpatterns = [
     path("experience/<int:pk>/delete/",
          views.AdminExperienceDeleteView.as_view(), name="experience-delete"),
 
+
+    # education
+
 ]
