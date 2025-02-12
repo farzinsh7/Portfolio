@@ -10,6 +10,7 @@ from .forms import (
     WebsiteForm,
     SocialFormSet,
     SummaryForm,
+    ExperienceForm,
 )
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
@@ -145,7 +146,7 @@ class AdminWebsiteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 # --------------- End Primary Information ---------------
 
 
-# --------------- Start Resume ---------------
+# --------------- Start Summary ---------------
 class AdminSummaryView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "dashboard/resume/summary.html"
     success_url = reverse_lazy("dashboard:summary")
@@ -155,8 +156,47 @@ class AdminSummaryView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self, queryset=None):
         return Summary.objects.first()
 
+# --------------- End Summary ---------------
 
+
+# --------------- Start Experience ---------------
 class AdminExperienceListview(LoginRequiredMixin, ListView):
     template_name = "dashboard/resume/experience-list.html"
     success_url = reverse_lazy("dashboard:experiences-list")
     queryset = Experience.objects.all()
+
+
+class AdminExperienceCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "dashboard/resume/experience-create.html"
+    form_class = ExperienceForm
+    success_message = "The experience was added successfully."
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        return redirect(reverse_lazy("dashboard:experience-update", kwargs={"pk": form.instance.pk}))
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:experience-list")
+
+
+class AdminExperienceUpdateview(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/resume/experience-update.html"
+    queryset = Experience.objects.all()
+    form_class = ExperienceForm
+    success_message = "The experience was Updated successfully."
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:experience-update", kwargs={"pk": self.get_object().pk})
+
+
+class AdminExperienceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    queryset = Experience.objects.all()
+    template_name = "dashboard/resume/experience-delete.html"
+    success_message = "The experience was Deleted successfully."
+    success_url = reverse_lazy("dashboard:experience-list")
+
+# --------------- End Experience ---------------
+
+
+# --------------- Start Education ---------------

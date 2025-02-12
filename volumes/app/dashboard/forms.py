@@ -140,12 +140,14 @@ class ExperienceForm(forms.ModelForm):
             "company_location",
             "description",
         ]
+        widgets = {
+            'from_date': forms.widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'till_date': forms.widgets.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['class'] = "form-control"
-        self.fields['from_date'].widget.attrs['class'] = "form-control"
-        self.fields['till_date'].widget.attrs['class'] = "form-control"
         self.fields['company'].widget.attrs['class'] = "form-control"
         self.fields['company_location'].widget.attrs['class'] = "form-control"
         self.fields['description'].widget.attrs['class'] = "form-control"

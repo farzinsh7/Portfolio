@@ -1,5 +1,33 @@
 {% extends "dashboard/base/base.html" %}
 {% block title %}Experience Delete{% endblock title %}
 {% block content %}
-
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Experience Delete</h4>
+    <h5>Experience Delete</h5>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <h5 class="card-header">Are You Sure???</h5>
+          <div class="card-body">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="row d-flex ">
+                    <div class="row">
+                    <span>ID: {{object.id}}</span>
+                    <span>Title: {{object.title}}</span>
+                    <span>Comapny: {{object.company}}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class=" d-flex pt-5 justify-content-end">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <a class="btn btn-secondary ms-2" href="{% url "dashboard:experience-update" pk=object.pk %}">Return</a>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
