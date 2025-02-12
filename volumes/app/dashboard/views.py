@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, TemplateView, ListView
+from django.views.generic import UpdateView, TemplateView, ListView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm
 from django.utils.translation import gettext_lazy as _
@@ -58,6 +58,20 @@ class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return self.form_invalid(form)
 
 
+class AdminSkillCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "dashboard/skills/skill-create.html"
+    form_class = SkillsForm
+    success_message = "The skill was added successfully."
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        return redirect(reverse_lazy("dashboard:skill-update", kwargs={"pk": form.instance.pk}))
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:skill-list")
+
+
 class AdminSkillListview(LoginRequiredMixin, ListView):
     template_name = "dashboard/skills/skill-list.html"
     success_url = reverse_lazy("dashboard:skills-list")
@@ -68,7 +82,14 @@ class AdminSkillUpdateview(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "dashboard/skills/skill-update.html"
     queryset = Skills.objects.all()
     form_class = SkillsForm
-    success_message = "The skill was updated successfully."
+    success_message = "The skill was Updated successfully."
 
     def get_success_url(self):
         return reverse_lazy("dashboard:skill-update", kwargs={"pk": self.get_object().pk})
+
+
+class AdminSkillDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    queryset = Skills.objects.all()
+    http_method_names = ["post"]
+    success_message = "The skill was Deleted successfully."
+    success_url = reverse_lazy("dashboard:skill-list")

@@ -9,4 +9,8 @@ urlpatterns = [
     path("skills/", views.AdminSkillListview.as_view(), name="skill-list"),
     path("skills/<int:pk>/update/",
          views.AdminSkillUpdateview.as_view(), name="skill-update"),
+    path("skills/create/",
+         views.AdminSkillCreateView.as_view(), name="skill-create"),
+    path("skills/<int:pk>/delete/",
+         views.AdminSkillDeleteView.as_view(), name="skill-delete"),
 ]

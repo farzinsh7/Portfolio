@@ -1,7 +1,50 @@
 {% extends "dashboard/base/base.html" %}
 {% block content %}
-
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Skills</h4>
+    <div class="row">
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form action="." method="post">
+                        {% csrf_token %}
+                            <div class="mb-3">
+                              <label class="form-label">Title</label>
+                              {{ form.title }}
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Value</label>
+                              {{ form.value }}
+                            </div> 
+                            <div class="mb-3">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: {{ form.value.value }}%" aria-valuenow="{{ form.value.value }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div> 
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a href="{% url "dashboard:skill-list" %}" class="btn btn-outline-primary">Skills List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 {% block extra_js %}
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const valueInput = document.querySelector("[name='value']"); // Adjust selector if needed
+        const progressBar = document.querySelector(".progress-bar");
+    
+        if (valueInput && progressBar) {
+            valueInput.addEventListener("input", function () {
+                let value = parseInt(valueInput.value, 10) || 0;
+                value = Math.max(0, Math.min(100, value)); // Ensure the value stays between 0 and 100
+                progressBar.style.width = value + "%";
+                progressBar.setAttribute("aria-valuenow", value);
+            });
+        }
+    });
+</script>
 {% endblock extra_js %}
