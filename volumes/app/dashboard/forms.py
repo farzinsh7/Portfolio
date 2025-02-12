@@ -78,9 +78,9 @@ class BaseInterestedFormSet(BaseInlineFormSet):
 
 # Now use these custom formsets in your view
 CounterFormSet = inlineformset_factory(MyInformation, Counter, fields=[
-                                       'title', 'value', 'icon'], extra=1, can_delete=True, formset=BaseCounterFormSet)
+                                       'title', 'value', 'icon'], extra=10, can_delete=True, formset=BaseCounterFormSet)
 InterestedFormSet = inlineformset_factory(MyInformation, InterestedIn, fields=[
-                                          'title', 'color', 'icon'], extra=1, can_delete=True, formset=BaseInterestedFormSet)
+                                          'title', 'color', 'icon'], extra=10, can_delete=True, formset=BaseInterestedFormSet)
 
 
 class SkillsForm(forms.ModelForm):
