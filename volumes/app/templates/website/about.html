@@ -69,7 +69,7 @@
         <div class="row gy-4">
             {% for counter in object.counter.all %}
             <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
-                <i class="{{ counter.icon }}"></i>
+                <i class="bi {{ counter.icon }}"></i>
                 <div class="stats-item">
                     <span data-purecounter-start="0" data-purecounter-end="{{ counter.value }}" data-purecounter-duration="1" class="purecounter"></span>
                     <p>{{ counter.title }}</p>
@@ -119,7 +119,7 @@
             {% for interest in object.interested.all %}
             <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="features-item">
-                    <i class="{{ interest.icon }}" style="color:{{ interest.color }};"></i>
+                    <i class="bi {{ interest.icon }}" style="color:{{ interest.color }};"></i>
                     <h3><a href="" class="stretched-link">{{ interest.title }}</a></h3>
                 </div>
             </div>

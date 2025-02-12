@@ -127,7 +127,7 @@
                                           <div class="input-group">
                                           {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
                                           </div>
-                                      </td>
+                                        </td>
                                         <td>{{ form.DELETE }}</td>
                                     </tr>
                                 {% endfor %}
@@ -202,5 +202,14 @@
     });
 });
 </script>
-
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll('input[name$="icon"]').forEach(input => {
+          input.addEventListener("input", function () {
+              let iconPreview = this.closest('.input-group').querySelector("i");
+              iconPreview.className = this.value;
+          });
+      });
+  });
+  </script>
 {% endblock extra_js %}
