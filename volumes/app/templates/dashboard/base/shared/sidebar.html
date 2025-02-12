@@ -85,16 +85,16 @@
           <div>My Information</div>
         </a>
       </li>
-      <li class="menu-item  {% if request.resolver_match.url_name == 'skill-list' %}active{% endif %}">
+      <li class="menu-item {% if request.resolver_match.url_name == 'skill-list' %}active{% endif %}">
         <a href="{% url "dashboard:skill-list" %}" class="menu-link">
           <i class="menu-icon bi bi-briefcase"></i>
           <div>Skills</div>
         </a>
       </li>
-      <li class="menu-item">
-        <a href="" class="menu-link">
-          <i class="menu-icon bi bi-globe"></i>
-          <div>Social & Logo</div>
+      <li class="menu-item  {% if request.resolver_match.url_name == 'website' %}active{% endif %}">
+        <a href="{% url "dashboard:website" %}" class="menu-link">
+          <i class="menu-icon bi bi-database-fill-gear"></i>
+          <div>Primary Information</div>
         </a>
       </li>
     </ul>

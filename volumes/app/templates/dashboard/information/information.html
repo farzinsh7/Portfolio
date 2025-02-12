@@ -6,138 +6,140 @@
 
     <div class="row">
         <div class="col-xl">
+          <form action="{% url 'dashboard:information' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
             <div class="card mb-4">
-                <div class="card-body">
-                    <form action="{% url 'dashboard:information' %}" enctype="multipart/form-data" method="post">
-                        {% csrf_token %}
-                          <div class="row">
-                            <div class="mb-3 col-6">
-                              <label class="form-label">Title</label>
-                              {{ form.title }}
-                            </div>
-                            <div class="mb-3 col-6">
-                              <div class="card-body">
-                                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                  <img src="{{ object.image.url }}" alt="user-image" class="img-fluid w-25 d-block rounded" id="uploadedImage">
-                                  <div class="button-wrapper">
-                                      <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                          <span class="d-none d-sm-block">Upload new Image</span>
-                                          <i class="bx bx-upload d-block d-sm-none"></i>
-                                          <input type="file" name="image" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg">
-                                      </label>
-                                  </div>
-                                </div>
-                              </div>
+              <div class="card-body">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Title</label>
+                        {{ form.title }}
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <div class="card-body">
+                          <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img src="{{ object.image.url }}" alt="user-image" class="img-fluid w-25 d-block rounded" id="uploadedImage">
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">Upload new Image</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input type="file" name="image" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg">
+                                </label>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="mb-3  col-6">
-                              <label class="form-label">Birth_date</label>
-                              {{ form.birth_date }}
-                            </div>
-                            <div class="mb-3  col-6">
-                              <label class="form-label">Website</label>
-                              {{ form.website }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="mb-3 col-6">
-                              <label class="form-label">Phone</label>
-                              {{ form.phone }}
-                            </div>
-                            <div class="mb-3 col-6">
-                              <label class="form-label">City</label>
-                              {{ form.city }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="mb-3 col-6">
-                              <label class="form-label">Degree</label>
-                              {{ form.degree }}
-                            </div>
-                            <div class="mb-3 col-6">
-                              <label class="form-label">Email</label>
-                              {{ form.email }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="mb-3 col-10">
-                              <label class="form-label">Description</label>
-                              {{ form.description }}
-                            </div>
-                            <div class="mb-3 col-2 align-content-center">
-                              <label class="form-label">Freelance</label>
-                              {{ form.freelance }}
-                            </div>
-                          </div>              
-                        <hr>
-
-                        <!-- Counter Formset -->
-                        <h5 class="fw-bold">Counter Information</h5>
-                        {{ counter_formset.management_form }}
-                        <table class="table" id="counter-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Value</th>
-                                    <th>Icon</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for form in counter_formset %}
-                                    <tr class="counter-form">
-                                        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-                                        <td>{{ form.title }}</td>
-                                        <td>{{ form.value }}</td>
-                                        <td>
-                                          <div class="input-group">
-                                            {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
-                                          </div>
-                                        </td>
-                                        <td>{{ form.DELETE }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-outline-primary mt-3" id="add-counter">Add New Counter</button>
-
-                        <hr>
-
-                        <!-- InterestedIn Formset -->
-                        <h5 class="fw-bold">Interested In</h5>
-                        {{ interested_formset.management_form }}
-                        <table class="table" id="interested-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Color</th>
-                                    <th>Icon</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for form in interested_formset %}
-                                    <tr class="interested-form">
-                                        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-                                        <td>{{ form.title }}</td>
-                                        <td>{{ form.color }}</td>
-                                        <td>
-                                          <div class="input-group">
-                                          {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
-                                          </div>
-                                        </td>
-                                        <td>{{ form.DELETE }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-outline-primary mt-3" id="add-interested">Add New Interest</button>
-                        <hr>
-                        <button type="submit" class="btn btn-primary mt-3">Update</button>
-                    </form>
-                </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="mb-3  col-md-6">
+                        <label class="form-label">Birth_date</label>
+                        {{ form.birth_date }}
+                      </div>
+                      <div class="mb-3  col-md-6">
+                        <label class="form-label">Website</label>
+                        {{ form.website }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Phone</label>
+                        {{ form.phone }}
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">City</label>
+                        {{ form.city }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Degree</label>
+                        {{ form.degree }}
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="mb-3 col-md-10">
+                        <label class="form-label">Description</label>
+                        {{ form.description }}
+                      </div>
+                      <div class="mb-3 col-md-2 align-content-center">
+                        <label class="form-label">Freelance</label>
+                        {{ form.freelance }}
+                      </div>
+                    </div>                  
+              </div>
             </div>
+            <hr class="my-5">
+            <div class="card">
+              <h5 class="card-header">Counter Setting</h5>
+              <div class="table-responsive text-nowrap">
+                {{ counter_formset.management_form }}
+                <table class="table" id="counter-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Value</th>
+                      <th>Icon</th>
+                      <th>Remove</th>
+                  </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    {% for form in counter_formset %}
+                        <tr class="counter-form">
+                          {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                          <td>{{ form.title }}</td>
+                          <td>{{ form.value }}</td>
+                          <td>
+                            <div class="input-group">
+                              {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
+                            </div>
+                          </td>
+                          <td>{{ form.DELETE }}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <button type="button" class="btn btn-outline-primary mx-3 my-3" id="add-counter">Add New Counter</button>
+              </div>
+            </div>
+            <hr class="my-5">
+            <div class="card">
+              <h5 class="card-header">Interested In</h5>
+              <div class="table-responsive text-nowrap">
+                {{ interested_formset.management_form }}
+                <table class="table" id="interested-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Color</th>
+                      <th>Icon</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    {% for form in interested_formset %}
+                        <tr class="interested-form">
+                            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                            <td>{{ form.title }}</td>
+                            <td>{{ form.color }}</td>
+                            <td>
+                              <div class="input-group">
+                              {{ form.icon }}<span id="basic-default-password2" class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
+                              </div>
+                            </td>
+                            <td>{{ form.DELETE }}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <button type="button" class="btn btn-outline-primary mx-3 my-3" id="add-interested">Add New Interest</button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Update</button>
+          </form>
         </div>
     </div>
 </div>

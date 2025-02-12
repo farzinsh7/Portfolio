@@ -1,0 +1,89 @@
+{% extends "dashboard/base/base.html" %}
+{% block content %}
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Primary Information</h4>
+    <div class="row">
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form action="{% url 'dashboard:information' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                          <div class="row">
+                            <div class="mb-3 col-md-6">
+                              <label class="form-label">Title</label>
+                              {{ form.site_title }}
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <label class="form-label">Title</label>
+                              {{ form.sub_title }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="mb-3 col-md-6 align-content-center">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img src="{{ object.logo_image.url }}" alt="user-image" class="d-block rounded" style="width: 10%" id="uploadedImage1">
+                                    <div class="button-wrapper">
+                                        <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Upload Logo</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file" name="logo_image" id="upload1" class="account-file-input" hidden accept="image/png, image/jpeg">
+                                        </label>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6 align-content-center">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img src="{{ object.background_image.url }}" alt="user-image" class="img-fluid w-50 d-block rounded" id="uploadedImage2">
+                                    <div class="button-wrapper">
+                                        <label for="upload2" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Upload Background</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file" name="background_image" id="upload2" class="account-file-input" hidden accept="image/png, image/jpeg">
+                                        </label>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="mb-3">
+                                <label class="form-label">About Me</label>
+                                {{ form.about_me }}
+                            </div>
+                          </div>           
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block extra_js %}
+<script>
+    document.getElementById('upload1').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('uploadedImage1').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    document.getElementById('upload2').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('uploadedImage2').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock extra_js %}

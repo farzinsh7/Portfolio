@@ -2,9 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, TemplateView, ListView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm
+from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm, WebsiteForm
 from django.utils.translation import gettext_lazy as _
-from website.models import MyInformation, Skills
+from website.models import MyInformation, Skills, Website
 from django.shortcuts import redirect
 
 
@@ -58,6 +58,7 @@ class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return self.form_invalid(form)
 
 
+# --------------- Start Skills ---------------
 class AdminSkillCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "dashboard/skills/skill-create.html"
     form_class = SkillsForm
@@ -93,3 +94,16 @@ class AdminSkillDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     http_method_names = ["post"]
     success_message = "The skill was Deleted successfully."
     success_url = reverse_lazy("dashboard:skill-list")
+
+# --------------- End Skills ---------------
+
+
+# --------------- Start Primary Information ---------------
+class AdminWebsiteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/website/website.html"
+    success_url = reverse_lazy("dashboard:website")
+    success_message = "The information was updated successfully."
+    form_class = WebsiteForm
+
+    def get_object(self, queryset=None):
+        return Website.objects.first()
