@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from website.models import MyInformation, Counter, InterestedIn, Skills, Website
+from website.models import MyInformation, Counter, InterestedIn, Skills, Website, SocialMedias
 from django.forms import inlineformset_factory, BaseInlineFormSet
 
 
@@ -56,6 +56,21 @@ class WebsiteForm(forms.ModelForm):
         self.fields['background_image'].widget.attrs['class'] = "form-control"
 
 
+# Create a custom formset class for Social
+class BaseSocialFormSet(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.forms:
+            form.fields['title'].widget.attrs['class'] = 'form-control'
+            form.fields['icon'].widget.attrs['class'] = 'form-control'
+            form.fields['link'].widget.attrs['class'] = 'form-control'
+
+
+SocialFormSet = inlineformset_factory(Website, SocialMedias, fields=[
+    'title', 'icon', 'link'], extra=5, can_delete=True, formset=BaseSocialFormSet)
+
+
+# -------------------------------------------------------------------
 # Create a custom formset class for Counter
 class BaseCounterFormSet(BaseInlineFormSet):
     def __init__(self, *args, **kwargs):

@@ -1,13 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
+<html>
   <head>
     <meta charset="utf-8" />
     <meta
@@ -15,12 +8,13 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard - Portfolio</title>
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <!-- Favicons -->
+    <link href="{{ website.logo_image.url }}" rel="icon" />
+    <link href="{{ website.logo_image.url }}" rel="apple-touch-icon" />
 
     {% include "dashboard/base/_header_refrences.html" %}
   </head>
@@ -63,7 +57,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{% static 'dashboard/img/avatars/1.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{ website.logo_image.url }}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -72,11 +66,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{% static 'dashboard/img/avatars/1.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{ website.logo_image.url }}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user }}{% endif %}</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>

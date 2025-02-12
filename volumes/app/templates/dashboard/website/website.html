@@ -5,24 +5,24 @@
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Primary Information</h4>
     <div class="row">
         <div class="col-xl">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <form action="{% url 'dashboard:information' %}" enctype="multipart/form-data" method="post">
-                        {% csrf_token %}
-                          <div class="row">
+            <form action="{% url 'dashboard:website' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
                             <div class="mb-3 col-md-6">
-                              <label class="form-label">Title</label>
-                              {{ form.site_title }}
+                            <label class="form-label">Title</label>
+                            {{ form.site_title }}
                             </div>
                             <div class="mb-3 col-md-6">
-                              <label class="form-label">Title</label>
-                              {{ form.sub_title }}
+                            <label class="form-label">Title</label>
+                            {{ form.sub_title }}
                             </div>
-                          </div>
-                          <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="mb-3 col-md-6 align-content-center">
                                 <div class="card-body">
-                                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
                                     <img src="{{ object.logo_image.url }}" alt="user-image" class="d-block rounded" style="width: 10%" id="uploadedImage1">
                                     <div class="button-wrapper">
                                         <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -31,12 +31,12 @@
                                             <input type="file" name="logo_image" id="upload1" class="account-file-input" hidden accept="image/png, image/jpeg">
                                         </label>
                                     </div>
-                                  </div>
+                                </div>
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6 align-content-center">
                                 <div class="card-body">
-                                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
                                     <img src="{{ object.background_image.url }}" alt="user-image" class="img-fluid w-50 d-block rounded" id="uploadedImage2">
                                     <div class="button-wrapper">
                                         <label for="upload2" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -45,20 +45,63 @@
                                             <input type="file" name="background_image" id="upload2" class="account-file-input" hidden accept="image/png, image/jpeg">
                                         </label>
                                     </div>
-                                  </div>
+                                </div>
                                 </div>
                             </div>
-                          </div>
-                          <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="mb-3">
                                 <label class="form-label">About Me</label>
                                 {{ form.about_me }}
                             </div>
-                          </div>           
-                        <button type="submit" class="btn btn-primary mt-3">Update</button>
-                    </form>
+                        </div>   
+                    </div>
                 </div>
-            </div>
+                <hr class="my-5">
+                <!-- social In Section -->
+                <div class="card">
+                    <h5 class="card-header">social Link</h5>
+                    <div class="table-responsive text-nowrap">
+                        {{ social_formset.management_form }}
+                        <table class="table" id="social-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Icon</th>
+                                    <th>Link</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                {% for form in social_formset %}
+                                    {% if form.instance.pk %}
+                                        <!-- Show existing saved forms -->
+                                        <tr class="social-form">
+                                    {% else %}
+                                        <!-- Hide only extra (empty) forms -->
+                                        <tr class="social-form extra-social-form" style="display: none;">
+                                    {% endif %}
+                                        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                                        <td>{{ form.title }}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                {{ form.icon }}
+                                                <span class="input-group-text cursor-pointer">
+                                                    <i class="{{ form.icon.value }}"></i>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>{{ form.link }}</td>
+                                        <td>{{ form.DELETE }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-outline-primary mx-3 my-3" id="add-social">Add New Social</button>
+                    </div>                    
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update</button>
+            </form>
         </div>
     </div>
 </div>
@@ -84,6 +127,26 @@
             }
             reader.readAsDataURL(file);
         }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("add-social").addEventListener("click", function () {
+            let hiddenForms = document.querySelectorAll(".extra-social-form[style='display: none;']");
+            if (hiddenForms.length > 0) {
+                hiddenForms[0].style.display = "table-row"; // Show the first hidden extra form
+            }
+        });
+    });    
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('input[name$="icon"]').forEach(input => {
+            input.addEventListener("input", function () {
+                let iconPreview = this.closest('.input-group').querySelector("i");
+                iconPreview.className = this.value;
+            });
+        });
     });
 </script>
 {% endblock extra_js %}

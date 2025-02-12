@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, TemplateView, ListView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm, WebsiteForm
+from .forms import InformationForm, CounterFormSet, InterestedFormSet, SkillsForm, WebsiteForm, SocialFormSet
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
 from django.shortcuts import redirect
@@ -107,3 +107,28 @@ class AdminWebsiteView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return Website.objects.first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object"] = self.get_object()
+
+        if self.request.POST:
+            context["social_formset"] = SocialFormSet(
+                self.request.POST, instance=context["object"])
+        else:
+            context["social_formset"] = SocialFormSet(
+                instance=context["object"])
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        social_formset = context["social_formset"]
+
+        if social_formset.is_valid():
+            self.object = form.save()
+            social_formset.instance = self.object
+            social_formset.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
