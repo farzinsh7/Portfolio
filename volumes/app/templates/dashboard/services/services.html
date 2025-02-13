@@ -1,0 +1,93 @@
+{% extends "dashboard/base/base.html" %}
+{% block title %}Information{% endblock title %}
+{% block content %}
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Services</h4>
+
+    <div class="row">
+        <div class="col-xl">
+            <form action="{% url 'dashboard:services' %}" method="post">
+                {% csrf_token %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-5">
+                <!-- Services In Section -->
+                <div class="card">
+                    <h5 class="card-header">Services</h5>
+                    <div class="table-responsive text-nowrap">
+                      {{ service_formset.management_form }}
+                      <table class="table" id="service-table">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Color</th>
+                            <th>Icon</th>
+                            <th>Remove</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          {% for form in service_formset %}
+                          {% if form.instance.pk %}
+                          <!-- Show existing saved forms -->
+                          <tr class="service-form">
+                          {% else %}
+                          <!-- Hide only extra (empty) forms -->
+                          <tr class="service-form extra-service-form" style="display: none;">
+                          {% endif %}
+                          {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                            <td>{{ form.title }}</td>
+                            <td>
+                                <div class="input-group">
+                                    {{ form.icon }}
+                                    <span class="input-group-text cursor-pointer"><i class="{{ form.icon.value }}"></i></span>
+                                </div>
+                            </td>
+                            <td>{{ form.description }}</td>
+                            <td>{{ form.DELETE }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn btn-outline-primary mx-3 my-3" id="add-service" >Add New Service</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block extra_js %}
+<script>
+    // JS Code For service
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("add-service").addEventListener("click", function () {
+          let hiddenForms = document.querySelectorAll(".extra-service-form[style='display: none;']");
+          if (hiddenForms.length > 0) {
+              hiddenForms[0].style.display = "table-row"; // Show the first hidden extra form
+          }
+      });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('input[name$="icon"]').forEach(input => {
+            input.addEventListener("input", function () {
+                let iconPreview = this.closest('.input-group').querySelector("i");
+                iconPreview.className = this.value;
+            });
+        });
+    });
+</script>
+{% endblock extra_js %}

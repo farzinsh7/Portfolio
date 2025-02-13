@@ -66,6 +66,15 @@
           <div>Educations</div>
         </a>
       </li>
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Service</span>
+      </li>
+      <li class="menu-item {% if request.resolver_match.url_name == 'services' %}active{% endif %}">
+        <a href="{% url "dashboard:services" %}" class="menu-link">
+          <i class="menu-icon bi bi-patch-check"></i>
+          <div>Services</div>
+        </a>
+      </li>
     </ul>
   </aside>
   <!-- / Menu -->

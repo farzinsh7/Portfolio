@@ -12,10 +12,13 @@ from .forms import (
     SummaryForm,
     ExperienceForm,
     EducationForm,
+    ServicesSummaryForm,
+    ServiceFormSet,
 )
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
 from resume.models import Summary, Experience, Education
+from services.models import ServicesSummary
 from django.shortcuts import redirect
 
 
@@ -67,6 +70,44 @@ class AdminInformationView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return super().form_valid(form)  # Proceed with the usual form_valid process
         else:
             return self.form_invalid(form)
+
+
+# --------------- Start Services ---------------
+class AdminServicesView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/services/services.html"
+    success_url = reverse_lazy("dashboard:services")
+    success_message = "The services was updated successfully."
+    form_class = ServicesSummaryForm
+
+    def get_object(self, queryset=None):
+        return ServicesSummary.objects.first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object"] = self.get_object()
+
+        if self.request.POST:
+            context["service_formset"] = ServiceFormSet(
+                self.request.POST, instance=context["object"])
+        else:
+            context["service_formset"] = ServiceFormSet(
+                instance=context["object"])
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        service_formset = context["service_formset"]
+
+        if service_formset.is_valid():
+            self.object = form.save()
+            service_formset.instance = self.object
+            service_formset.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+# --------------- End Services ---------------
 
 
 # --------------- Start Skills ---------------
