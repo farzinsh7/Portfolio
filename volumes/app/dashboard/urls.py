@@ -33,5 +33,12 @@ urlpatterns = [
 
 
     # education
-
+    path("education/create/",
+         views.AdminEducationCreateView.as_view(), name="education-create"),
+    path("education/", views.AdminEducationListview.as_view(),
+         name="education-list"),
+    path("education/<int:pk>/update/",
+         views.AdminEducationUpdateview.as_view(), name="education-update"),
+    path("education/<int:pk>/delete/",
+         views.AdminEducationDeleteView.as_view(), name="education-delete"),
 ]

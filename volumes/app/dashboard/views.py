@@ -11,6 +11,7 @@ from .forms import (
     SocialFormSet,
     SummaryForm,
     ExperienceForm,
+    EducationForm,
 )
 from django.utils.translation import gettext_lazy as _
 from website.models import MyInformation, Skills, Website
@@ -200,3 +201,38 @@ class AdminExperienceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
 
 
 # --------------- Start Education ---------------
+class AdminEducationListview(LoginRequiredMixin, ListView):
+    template_name = "dashboard/resume/education-list.html"
+    success_url = reverse_lazy("dashboard:educations-list")
+    queryset = Education.objects.all()
+
+
+class AdminEducationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "dashboard/resume/education-create.html"
+    form_class = EducationForm
+    success_message = "The education was added successfully."
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        return redirect(reverse_lazy("dashboard:education-update", kwargs={"pk": form.instance.pk}))
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:education-list")
+
+
+class AdminEducationUpdateview(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/resume/education-update.html"
+    queryset = Education.objects.all()
+    form_class = EducationForm
+    success_message = "The education was Updated successfully."
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:education-update", kwargs={"pk": self.get_object().pk})
+
+
+class AdminEducationDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    queryset = Education.objects.all()
+    template_name = "dashboard/resume/education-delete.html"
+    success_message = "The education was Deleted successfully."
+    success_url = reverse_lazy("dashboard:education-list")
